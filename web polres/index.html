@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sistem Informasi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav">
+      <img src="bendera.png" alt="Bendera Merah Putih" class="logo">
+
+    <!-- tombol hamburger -->
+    <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <!-- menu utama -->
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#" onclick="showSection('home'); closeNav()">Beranda</a></li>
+      <li><a href="#" onclick="showSection('struktur'); closeNav()">Struktur</a></li>
+      <li><a href="#" onclick="showSection('berita'); closeNav()">Berita</a></li>
+      <li><a href="#" onclick="showSection('admin'); closeNav()">Admin</a></li>
+    </ul>
+  </nav>
+
+  <!-- LOGIN / LOGOUT MINI PANEL -->
+  <section id="login-admin" class="hidden">
+    <h2 id="login-title">Login Admin</h2>
+    <input type="text" id="username" placeholder="Username"><br />
+    <input type="password" id="password" placeholder="Password"><br />
+    <div class="toolbar">
+      <button class="primary" id="login-button" onclick="prosesLogin()">Login</button>
+      <button id="logout-button" class="hidden ghost" onclick="logout()">Logout</button>
+    </div>
+    <p id="login-error" class="muted" style="color:#dc2626;"></p>
+  </section>
+
+  <!-- HOME -->
+<!-- HOME -->
+<section id="home">
+  <!-- HERO: kiri logo SDM + judul + alamat; kanan logo Polres -->
+  <div class="hero">
+    <div class="hero-left">
+      <img src="sdm-polri.png" alt="Logo SDM Polri" class="logo-sdm">
+      <div class="hero-text">
+        <h1 class="title">Biro SDM Polri</h1>
+        <p id="alamat-polres" class="muted">
+          <!-- alamat diisi dari JS (polresAddress) -->
+        </p>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="polres-logo.png" alt="Logo Polres" class="logo-polres">
+    </div>
+  </div>
+
+  <!-- PROFIL KEPALA SDM -->
+  <section class="block">
+    <h2>Kepala SDM</h2>
+    <div id="kepala-sdm" class="people-feature">
+      <!-- di-render dari JS -->
+    </div>
+  </section>
+
+  <!-- KEPALA BAGIAN SDM -->
+  <section class="block">
+    <h2>Kepala Bagian</h2>
+    <div id="kepala-bagian" class="people-grid">
+      <!-- di-render dari JS -->
+    </div>
+  </section>
+
+  <!-- VISI & MISI -->
+  <section class="block">
+    <h2>Visi & Misi</h2>
+    <div class="visi-misi">
+      <div class="card">
+        <h3>Visi</h3>
+        <p id="visi-text">
+          <!-- diisi dari JS agar mudah ubah -->
+          Terwujudnya sumber daya manusia Polri yang profesional, modern, dan terpercaya.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Misi</h3>
+        <ul id="misi-list">
+          <!-- diisi dari JS -->
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Tujuan</h3>
+        <p id="tujuan-text">
+          <!-- diisi dari JS -->
+          Mendukung terciptanya pelayanan prima dan penegakan hukum yang berkeadilan melalui pengelolaan SDM yang unggul.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEASER BERITA -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Berita Terbaru</h2>
+      <a href="#" onclick="showSection('berita')" class="link">Lihat semua →</a>
+    </div>
+    <div id="berita-home" class="grid">
+      <!-- 3 berita terbaru di-render dari JS -->
+    </div>
+  </section>
+</section>
+
+  <!-- STRUKTUR (dulu: profil) -->
+  <section id="struktur" class="hidden">
+    <h2>Struktur Organisasi</h2>
+    <div id="daftar-struktur" class="grid"></div>
+  </section>
+
+  <!-- BERITA -->
+  <section id="berita" class="hidden">
+    <h2>Berita Terbaru</h2>
+    <div id="daftar-berita" class="grid"></div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="admin" class="hidden">
+    <h2>Panel Admin</h2>
+
+    <div id="akses-admin">
+      <p class="muted">Silakan login untuk mengelola berita.</p>
+      <button class="primary" onclick="showSection('login-admin')">Buka Form Login</button>
+    </div>
+
+    <div id="form-admin" class="hidden">
+      <input type="text" id="judul" placeholder="Judul Berita" /><br />
+      <textarea id="isi" placeholder="Isi berita..." ></textarea><br />
+      <input type="file" id="media" accept="image/*,video/*"><br />
+
+      <div class="toolbar">
+        <button id="submit-berita" class="primary" onclick="tambahBerita()">Tambah Berita</button>
+        <button id="cancel-edit" class="ghost hidden" onclick="batalEdit()">Batal</button>
+        <button class="ghost" onclick="logout()">Logout Admin</button>
+      </div>
+      <p class="muted" id="admin-hint">Saat mode edit aktif, tombol di atas berubah menjadi “Simpan Perubahan”.</p>
+    </div>
+
+    <!-- Notifikasi (toast) -->
+    <div id="notif" class="hidden"></div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

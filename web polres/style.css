@@ -1,0 +1,734 @@
+/* =========================================================
+   Variabel Global
+   ========================================================= */
+:root {
+  --primary: #005b96;
+}
+
+/* =========================================================
+   Reset Sederhana & Dasar
+   ========================================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #222;
+  font-family: Arial, sans-serif;
+
+  background-image: url('foto_depan_polres.png');  /* ← path benar */
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100vh; /* pastikan menutup layar */
+
+  position: relative;         /* ← TAMBAHKAN INI */
+}
+
+/* --- TAMBAHKAN SETELAH BLOK body --- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;                     /* = top:0; right:0; bottom:0; left:0; */
+  background: rgba(0, 0, 0, 0.45);  /* gelap 40% */
+  z-index: 0;                   /* lapisan paling bawah, tapi masih di atas background body */
+  pointer-events: none;         /* overlay tidak menghalangi klik */
+}
+
+/* Konten utama harus berada di atas overlay */
+.nav,
+.hero,
+section,
+.block,
+.people-feature,
+.people-grid,
+.card,
+.person {
+  position: relative; /* penting agar z-index berlaku */
+  z-index: 1;
+}
+
+/* Warna teks default jadi putih */
+body { color: #fff; }
+
+/* Bayangan halus untuk semua heading & paragraf umum */
+h1, h2, h3, h4, h5, h6,
+p, .title, .muted {
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+}
+
+/* Jika ada link di navbar/hero, pastikan tetap putih/terbaca */
+.nav a,
+.hero a { color: #fff; }
+
+/* =========================================================
+   Layout & Utilitas
+   ========================================================= */
+section {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.muted {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* =========================================================
+   NAVBAR (Desktop: menu selalu terlihat; Mobile: hamburger)
+   ========================================================= */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--primary);
+  padding: 10px 16px;
+
+ /* tambahkan: */
+  position: sticky;   /* atau: position: relative; */
+  top: 0;             /* biar nempel di atas saat discroll */
+  z-index: 1000;      /* di atas hero/gambar */
+}
+/* Logo bendera */
+.logo {
+  max-height: 37px;
+  transform: scale(1.3);
+}
+
+/* Tombol hamburger */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  /* tambahkan: */
+  position: relative;
+  z-index: 1002;
+}
+
+.nav-toggle .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+/* Menu utama */
+.nav-menu {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  /* tambahkan ini agar selalu di atas konten lain */
+  z-index: 1001;
+}
+
+.nav-menu li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+.nav-menu li a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================================================
+   HOME / HERO
+   ========================================================= */
+.hero {
+  display: flex;                  /* ganti grid → flex */
+  justify-content: space-between; /* kiri & kanan mepet */
+  align-items: center;            /* sejajarkan vertikal */
+  gap: 16px;
+  padding: 20px;
+  border-bottom: 1px solid #1d6ee8;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.hero-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-sdm, .logo-polres {
+  max-height: 200px;  /* samakan ukuran tinggi */
+  width: auto;
+  border-radius: 8px;
+}
+
+.hero-text .title {
+  margin: 0 0 6px;
+}
+
+.hero-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-text {
+  background: rgba(0, 0, 0, 0.45);  /* gelap transparan */
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.logo-polres {
+  max-height: 200px;
+  width: auto;
+  border-radius: 8px;
+}
+
+/* =========================================================
+   People & Visi Misi
+   ========================================================= */
+.block {
+  margin-top: 24px;
+}
+
+.block-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.link {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.people-feature {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.people-grid .person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  max-width: 420px;
+  margin: 8px auto;
+  padding: 16px;
+
+  background: rgba(0,0,0,0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.people-grid .person img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  margin: 8px auto 12px;
+}
+
+/* Nama */
+.people-grid .person .name,
+.people-grid .person h3 {
+  margin: 0 0 6px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,.8);
+}
+
+/* Jabatan */
+.people-grid .person .role {
+  margin: 0 0 10px;
+  font-size: .95rem;
+  color: #e5e7eb;
+  text-shadow: 1px 1px 3px rgba(0,0,0,.6);
+}
+
+/* Tombol edit/hapus di bawah */
+.people-grid .person .toolbar {
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* ====== STRUKTUR ORGANISASI (pakai #daftar-struktur) ====== */
+
+/* Container grid untuk kartu struktur */
+#daftar-struktur.grid {
+  display: grid; /* override .grid generik */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+/* Kartu struktur di dalam daftar-struktur */
+#daftar-struktur .card {
+  max-width: 480px;           /* batasi lebar kartu */
+  margin: 0 auto;             /* center di kolom */
+  display: flex;
+  flex-direction: column;     /* urut vertikal */
+  align-items: center;
+  text-align: center;
+}
+
+/* Urutkan ulang tanpa ubah HTML: gambar di ATAS, judul di BAWAH */
+#daftar-struktur .card img { 
+  order: 1; 
+  width: 220px; 
+  height: 220px; 
+  object-fit: cover; 
+  border-radius: 12px; 
+  margin: 8px 0 12px; 
+}
+#daftar-struktur .card h3 { 
+  order: 2; 
+  width: 100%;
+  margin: 0 0 10px;
+}
+#daftar-struktur .card h3 .muted { 
+  color: #e5e7eb; 
+}
+
+/* Tombol di bawah, center */
+#daftar-struktur .card .toolbar { 
+  order: 3; 
+  width: 100%; 
+  justify-content: center; 
+  gap: 10px; 
+  margin-top: 12px; 
+}
+
+/* ====== Struktur Organisasi: Nama di atas, jabatan di bawah ====== */
+#daftar-struktur .card h3 {
+  display: flex;
+  flex-direction: column;   /* pecah vertikal */
+  align-items: center;      /* rata tengah */
+  margin: 0 0 10px;
+  text-align: center;
+}
+
+#daftar-struktur .card h3 .muted {
+  margin-top: 4px;          /* jarak atas kecil */
+  font-size: .95rem;
+  color: #e5e7eb;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+.visi-misi {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.visi-misi .card h3 {
+  margin-top: 0;
+}
+
+/* =========================================================
+   Komponen: Kartu & Toolbar
+   ========================================================= */
+.badge {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #111827;
+  margin-left: 6px;
+}
+
+/* kamu sudah punya .warn = merah; kita tambahkan .danger agar tombol Hapus ikut merah */
+button.danger { background: #dc2626; }
+/* (opsional) satukan saja keduanya bila mau konsisten */
+button.danger, button.warn { background: #dc2626; }
+
+   /* CARD: versi kontras tinggi di atas foto */
+.card {
+  padding: 16px 18px;
+  border-radius: 14px;
+
+  /* latar gelap transparan: jauh lebih kontras */
+  background: rgba(0, 0, 0, 0.58);
+
+  /* efek kaca (blur background foto) */
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+
+  /* garis halus supaya bentuknya tegas */
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  /* bayangan lembut */
+  box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+}
+
+/* judul dan teks di dalam card: pastikan putih & jelas */
+.card h3, .card strong, .card .title {
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.card p, .card li {
+  color: #fff;
+  line-height: 1.55;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* list bernomor terlihat rapi dan kontras */
+.card ol {
+  margin: 0 0 0 18px;
+  padding: 0;
+}
+
+/* ===== TEKS DI DALAM .person ===== */
+
+/* Nama orang (mis. "ananta") */
+.person .name {
+  margin: 0;
+  font-weight: 800;
+  color: #fff; /* putih, kontras */
+  letter-spacing: .2px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* outline halus */
+}
+
+/* Jabatan/role (mis. "(wakil)") */
+.person .role {
+  margin: 2px 0 0;
+  font-size: .95rem;
+  color: #e5e7eb; /* abu terang */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+/* Badge status (mis. "Terbit") */
+.person .badge,
+.badge {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #22c55e; /* hijau kontras */
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+
+/* ===== TOMBOL DI PANEL GELAP ===== */
+
+button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* tombol utama (kalau ada) */
+button.primary {
+  background: #2563eb;  /* biru */
+  color: #fff;
+}
+
+/* tombol aksi berbahaya: Hapus */
+button.danger, button.warn {
+  background: #dc2626;  /* merah */
+  color: #fff;
+}
+
+/* tombol sekunder transparan */
+button.ghost {
+  background: rgba(255,255,255,0.15); /* transparan di atas panel gelap */
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+.card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1.05rem;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+/* ====== Berita setengah layar ====== */
+#daftar-berita.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 kolom setengah layar */
+  gap: 20px;
+  align-items: start;
+}
+
+/* Card berita isi penuh tiap kolom */
+#daftar-berita .card {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+}
+
+/* Responsif: di tablet/HP, jadi 1 kolom */
+@media (max-width: 920px) {
+  #daftar-berita.grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   Form & Input
+   ========================================================= */
+/* Form & Input – pastikan teks gelap agar terbaca di atas bg putih */
+input,
+textarea,
+input[type="file"] {
+  width: 100%;
+  max-width: 520px;
+  margin-top: 8px;
+  padding: 10px;
+  background: #fff;
+  color: #111827;               /* ← TAMBAHKAN: teks gelap */
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+}
+
+/* Placeholder juga dibuat lebih terlihat */
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280;               /* abu-abu sedang */
+  opacity: 1;
+}
+
+/* =========================================================
+   Tombol
+   ========================================================= */
+button {
+  padding: 10px 16px;
+  color: #fff;
+  font-weight: 700;
+  background: #111827;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+button.primary {
+  background: var(--primary);
+}
+
+button.ghost {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+button.warn {
+  background: #dc2626;
+}
+
+/* =========================================================
+   Media (gambar & video)
+   ========================================================= */
+img, video {
+  max-width: 100%;
+  margin-top: 8px;
+  border-radius: 8px;
+}
+
+.card img {
+  max-width: 250px;   /* lebar maksimum */
+  max-height: 250px;  /* tinggi maksimum */
+  object-fit: cover;  /* biar proporsional */
+  display: block;
+  margin: 8px auto;   /* biar center */
+}
+
+/* Kecilkan video di daftar berita & teaser home */
+#daftar-berita video,
+#berita-home video,
+.news-media.video {
+  max-width: 300px;   /* batas lebar */
+  width: 100%;        /* responsif */
+  height: auto;
+  display: block;
+  margin: 8px auto;   /* center */
+  border-radius: 10px;
+}
+
+/* =========================================================
+   Notifikasi (toast)
+   ========================================================= */
+#notif {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  padding: 12px 20px;
+  color: #fff;
+  font-weight: 600;
+  background: #22c55e;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#notif.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   Responsif
+   ========================================================= */
+@media (max-width: 920px) {
+  .people-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .visi-misi {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: inline-block; }
+
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 54px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--primary);
+    padding: 8px 0;
+  }
+  .nav-menu.open { display: flex; }
+  .nav-menu li a { padding: 12px 16px; }
+
+  /* HANYA di layar kecil: logo kanan turun */
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-right {
+    justify-content: flex-start;
+    align-self: flex-start;
+  }
+
+  .people-feature { grid-template-columns: 88px 1fr; }
+}
+
+/* Responsif kecil */
+@media (max-width: 480px) {
+  #daftar-struktur.grid { grid-template-columns: 1fr; }
+  #daftar-struktur .card img { width: 170px; height: 170px; }
+}
+
+/* Buat teks muted di area admin/login lebih jelas di atas overlay gelap */
+#admin .muted,
+#login-admin .muted {
+  color: #e5e7eb;                               /* lebih terang */
+  text-shadow: 1px 1px 3px rgba(0,0,0,.6);      /* sedikit outline */
+}
+
+/* NAV paling atas */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 2147483647; }
+body { padding-top: 64px; }
+
+/* Desktop: tampilkan menu penuh, sembunyikan hamburger */
+@media (min-width: 769px) {
+  .nav-toggle { display: none; }
+  .nav-menu {
+    display: flex;
+    position: relative;
+    top: auto; left: auto; right: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    width: auto;
+    height: auto;
+    z-index: 4;
+  }
+  .nav-menu li { display: inline-block; }
+  .nav-menu a { display: inline-block; pointer-events: auto; position: relative; z-index: 5; }
+}
+
+/* Overlay jangan nyerap klik */
+#notif { pointer-events: none !important; }
+body::before, body::after, .hero::before, .hero::after { pointer-events: none !important; }
+
+/* Konten di bawah navbar */
+#home, #struktur, #berita, #admin, #login-admin { position: relative; z-index: 1; }
+
+/* contoh kalau yang menutup adalah .hero */
+.hero { 
+  z-index: 1; 
+  pointer-events: none; 
+}
+
+#kepalaList.people-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.card.person .avatar {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  margin: 8px auto 12px;
+}
